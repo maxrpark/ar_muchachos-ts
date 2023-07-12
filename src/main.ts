@@ -5,7 +5,10 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { MindARThree } from "mindar-image-three";
 import guiDebugger from "./utils/GUIDebugger.js";
-// import { mockWithImage } from "./utils/helperFunctions.js";
+import { mockWithImage } from "./utils/helperFunctions.js";
+
+const listener = new THREE.AudioListener();
+const audio = new THREE.PositionalAudio(listener);
 
 const debugActive = window.location.hash === "#debug";
 
@@ -43,6 +46,18 @@ const start = async () => {
 
   const { renderer, scene, camera } = mindarThree;
 
+  // create a global audio source
+  const sound = new THREE.Audio(listener);
+
+  // load a sound and set it as the Audio object's buffer
+  const audioLoader = new THREE.AudioLoader();
+
+  audioLoader.load("./muchachos.mp3", function (buffer) {
+    sound.setBuffer(buffer);
+    sound.setLoop(true);
+    sound.setVolume(0.5);
+  });
+
   // RENDERER
   renderer.outputColorSpace;
   renderer.toneMapping = THREE.LinearToneMapping;
@@ -51,8 +66,6 @@ const start = async () => {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   // SCENE
-
-  // scene.background = environmentMap;
   scene.environment = environmentMap;
 
   /// LIGHTS
@@ -78,17 +91,33 @@ const start = async () => {
   model.position.y = 0.5;
   model!.rotation.y = -2.5;
 
-  //@ts-ignore
-  let tl = gsap.timeline({ ease: "none" });
-  tl.to(model.scale, {
-    x: 0.002,
-    y: 0.002,
-    z: 0.002,
-    duration: 3,
-  }).to(model.position, { y: -0.3, duration: 2 }, 0);
-
   const anchor = mindarThree.addAnchor(0);
   anchor.group.add(model);
+
+  // AUDIO
+  camera.add(listener);
+  anchor.group.add(audio);
+
+  audio.setRefDistance(100);
+
+  anchor.onTargetFound = () => {
+    sound.offset = 18;
+    sound.play();
+    //@ts-ignore
+    let tl = gsap.timeline({ ease: "none" });
+    tl.to(model!.scale, {
+      x: 0.002,
+      y: 0.002,
+      z: 0.002,
+      duration: 3,
+    }).to(model!.position, { y: -0.3, duration: 2 }, 0);
+  };
+  anchor.onTargetLost = () => {
+    sound.stop();
+    model!.scale.set(0, 0, 0);
+    model!.position.y = 0.5;
+    model!.rotation.y = -3;
+  };
 
   await mindarThree.start();
 

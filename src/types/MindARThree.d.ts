@@ -7,8 +7,13 @@ declare module "mindar-image-three" {
     renderer: THREE.WebGLRenderer;
     scene: THREE.Scene;
     camera: THREE.PerspectiveCamera;
-    addAnchor(index: number): { group: THREE.Group };
+    addAnchor(index: number): {
+      group: THREE.Group;
+      onTargetFound: () => void;
+      onTargetLost: () => void;
+    };
     start(): Promise<void>;
+
     // Add other methods and properties as needed
   }
 
