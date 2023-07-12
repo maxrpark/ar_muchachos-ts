@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import GUI from "../../node_modules/lil-gui/dist/lil-gui.esm.js";
 const guiDebugger = ({ ambienLight, directionalLight, renderer }) => {
+    const GUI = lil.GUI;
     const gui = new GUI();
     const RENDERER = gui.addFolder("Renderer");
     RENDERER.add(renderer, "toneMappingExposure")

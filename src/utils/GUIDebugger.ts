@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import GUI from "../../node_modules/lil-gui/dist/lil-gui.esm.js";
 import { AmbientLight, DirectionalLight, Renderer } from "three";
 interface Params {
   ambienLight: AmbientLight;
@@ -8,6 +7,8 @@ interface Params {
 }
 
 const guiDebugger = ({ ambienLight, directionalLight, renderer }: Params) => {
+  //@ts-ignore
+  const GUI = lil.GUI;
   const gui = new GUI();
 
   const RENDERER = gui.addFolder("Renderer");
