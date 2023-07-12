@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { MindARThree } from "mindar-image-three";
 import guiDebugger from "./utils/GUIDebugger.js";
-import { mockWithImage } from "./utils/helperFunctions.js";
+// import { mockWithImage } from "./utils/helperFunctions.js";
 
 const listener = new THREE.AudioListener();
 const audio = new THREE.PositionalAudio(listener);
