@@ -8,10 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as THREE from "three";
-import { gsap } from "gsap";
+import { gsap } from "../node_modules/gsap/index.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { MindARThree } from "mindar-image-three";
+import guiDebugger from "./utils/GUIDebugger.js";
 const debugActive = window.location.hash === "#debug";
 const AR_BUTTON = document.createElement("button");
 AR_BUTTON.textContent = "Start EXPERIENCE";
@@ -49,6 +50,12 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
     directionalLight.position.set(3.038, 3.038, 8.692);
     scene.add(directionalLight, ambienLight);
+    if (debugActive)
+        guiDebugger({
+            ambienLight,
+            directionalLight,
+            renderer,
+        });
     model.scale.set(0, 0, 0);
     model.position.y = 0.5;
     model.rotation.y = -2.5;
