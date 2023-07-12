@@ -15,15 +15,15 @@ import guiDebugger from "./utils/GUIDebugger.js";
 const listener = new THREE.AudioListener();
 const audio = new THREE.PositionalAudio(listener);
 const debugActive = window.location.hash === "#debug";
+const loader = new GLTFLoader();
+const rgbeLoader = new RGBELoader();
+let model = null;
+let environmentMap = null;
 const AR_BUTTON = document.createElement("button");
 AR_BUTTON.textContent = "Start EXPERIENCE";
 document.body.appendChild(AR_BUTTON);
 AR_BUTTON.style.display = "none";
 AR_BUTTON.addEventListener("click", () => start());
-const loader = new GLTFLoader();
-const rgbeLoader = new RGBELoader();
-let model = null;
-let environmentMap = null;
 loader.load("model/scene.gltf", (gltf) => {
     model = gltf.scene;
     AR_BUTTON.style.display = "block";
@@ -57,7 +57,6 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     const ambienLight = new THREE.AmbientLight("#2630ba", 1.02);
     const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
     directionalLight.position.set(3.038, 3.038, 8.692);
-    scene.add(directionalLight, ambienLight);
     if (debugActive)
         guiDebugger({
             ambienLight,

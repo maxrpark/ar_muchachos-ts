@@ -12,17 +12,17 @@ const audio = new THREE.PositionalAudio(listener);
 
 const debugActive = window.location.hash === "#debug";
 
-const AR_BUTTON = document.createElement("button");
-AR_BUTTON.textContent = "Start EXPERIENCE";
-document.body.appendChild(AR_BUTTON);
-AR_BUTTON.style.display = "none";
-AR_BUTTON.addEventListener("click", () => start());
-
 const loader = new GLTFLoader();
 const rgbeLoader = new RGBELoader();
 
 let model: THREE.Mesh | null = null;
 let environmentMap: any | null = null;
+
+const AR_BUTTON = document.createElement("button");
+AR_BUTTON.textContent = "Start EXPERIENCE";
+document.body.appendChild(AR_BUTTON);
+AR_BUTTON.style.display = "none";
+AR_BUTTON.addEventListener("click", () => start());
 
 loader.load("model/scene.gltf", (gltf: { scene: THREE.Mesh }) => {
   model = gltf.scene;
@@ -77,7 +77,7 @@ const start = async () => {
   const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
   directionalLight.position.set(3.038, 3.038, 8.692);
 
-  scene.add(directionalLight, ambienLight);
+  // scene.add(directionalLight, ambienLight);
   // DEBUGER
   if (debugActive)
     guiDebugger({
