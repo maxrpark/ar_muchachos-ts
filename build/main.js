@@ -24,7 +24,7 @@ AR_BUTTON.textContent = "Start EXPERIENCE";
 document.body.appendChild(AR_BUTTON);
 AR_BUTTON.style.display = "none";
 AR_BUTTON.addEventListener("click", () => start());
-rgbeLoader.load("./bg_map.hdr", (eMap) => {
+rgbeLoader.load("./bg_map_2.hdr", (eMap) => {
     eMap.mapping = THREE.EquirectangularReflectionMapping;
     environmentMap = eMap;
 });
