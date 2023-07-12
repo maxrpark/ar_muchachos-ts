@@ -1,6 +1,6 @@
 import * as THREE from "three";
 //@ts-ignore
-import { gsap } from "../node_modules/gsap/index.js";
+// import { gsap } from "../node_modules/gsap/index.js";
 //@ts-ignore
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 //@ts-ignore
@@ -79,13 +79,13 @@ const start = async () => {
   model.scale.set(0, 0, 0);
   model.position.y = 0.5;
   model!.rotation.y = -2.5;
-  let tl = gsap.timeline({ ease: "none" });
-  tl.to(model.scale, {
-    x: 0.002,
-    y: 0.002,
-    z: 0.002,
-    duration: 3,
-  }).to(model.position, { y: -0.3, duration: 2 }, 0);
+  // let tl = gsap.timeline({ ease: "none" });
+  // tl.to(model.scale, {
+  //   x: 0.002,
+  //   y: 0.002,
+  //   z: 0.002,
+  //   duration: 3,
+  // }).to(model.position, { y: -0.3, duration: 2 }, 0);
 
   const anchor = mindarThree.addAnchor(0);
   anchor.group.add(model);
