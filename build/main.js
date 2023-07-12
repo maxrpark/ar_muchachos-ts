@@ -24,13 +24,13 @@ AR_BUTTON.textContent = "Start EXPERIENCE";
 document.body.appendChild(AR_BUTTON);
 AR_BUTTON.style.display = "none";
 AR_BUTTON.addEventListener("click", () => start());
-loader.load("model/scene.gltf", (gltf) => {
-    model = gltf.scene;
-    AR_BUTTON.style.display = "block";
-});
 rgbeLoader.load("./bg_map.hdr", (eMap) => {
     eMap.mapping = THREE.EquirectangularReflectionMapping;
     environmentMap = eMap;
+});
+loader.load("model/scene.gltf", (gltf) => {
+    model = gltf.scene;
+    AR_BUTTON.style.display = "block";
 });
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     if (!model || !environmentMap)
@@ -57,6 +57,7 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     const ambienLight = new THREE.AmbientLight("#2630ba", 1.02);
     const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
     directionalLight.position.set(3.038, 3.038, 8.692);
+    scene.add(directionalLight, ambienLight);
     if (debugActive)
         guiDebugger({
             ambienLight,

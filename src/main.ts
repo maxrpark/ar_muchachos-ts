@@ -24,14 +24,14 @@ document.body.appendChild(AR_BUTTON);
 AR_BUTTON.style.display = "none";
 AR_BUTTON.addEventListener("click", () => start());
 
-loader.load("model/scene.gltf", (gltf: { scene: THREE.Mesh }) => {
-  model = gltf.scene;
-  AR_BUTTON.style.display = "block";
-});
-
 rgbeLoader.load("./bg_map.hdr", (eMap: any) => {
   eMap.mapping = THREE.EquirectangularReflectionMapping;
   environmentMap = eMap;
+});
+
+loader.load("model/scene.gltf", (gltf: { scene: THREE.Mesh }) => {
+  model = gltf.scene;
+  AR_BUTTON.style.display = "block";
 });
 
 const start = async () => {
@@ -73,7 +73,7 @@ const start = async () => {
   const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
   directionalLight.position.set(3.038, 3.038, 8.692);
 
-  // scene.add(directionalLight, ambienLight);
+  scene.add(directionalLight, ambienLight);
   // DEBUGER
   if (debugActive)
     guiDebugger({
