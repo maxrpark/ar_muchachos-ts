@@ -31,7 +31,6 @@ loader.load("model/scene.gltf", (gltf: { scene: THREE.Mesh }) => {
 
 rgbeLoader.load("./bg_map.hdr", (eMap: any) => {
   eMap.mapping = THREE.EquirectangularReflectionMapping;
-
   environmentMap = eMap;
 });
 
