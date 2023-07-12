@@ -1,6 +1,7 @@
 import * as THREE from "three";
 //@ts-ignore
-import { gsap } from "../node_modules/gsap/index.js";
+// import { gsap } from "../node_modules/gsap/index.js";
+import { gsap } from "gsap";
 //@ts-ignore
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 //@ts-ignore
@@ -68,12 +69,12 @@ const start = async () => {
 
   scene.add(directionalLight, ambienLight);
   // DEBUGER
-  if (debugActive)
-    guiDebugger({
-      ambienLight,
-      directionalLight,
-      renderer,
-    });
+  // if (debugActive)
+  //   guiDebugger({
+  //     ambienLight,
+  //     directionalLight,
+  //     renderer,
+  //   });
 
   // MODEL INITIAL POSITION AND ANI
   model.scale.set(0, 0, 0);
