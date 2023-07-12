@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as THREE from "three";
-import { gsap } from "../node_modules/gsap/index.js";
+import { gsap } from "gsap";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { MindARThree } from "mindar-image-three";

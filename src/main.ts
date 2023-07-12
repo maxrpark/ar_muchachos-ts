@@ -1,13 +1,14 @@
 import * as THREE from "three";
 //@ts-ignore
-import { gsap } from "../node_modules/gsap/index.js";
+// import { gsap } from "../node_modules/gsap/index.js";
+import { gsap } from "gsap";
 //@ts-ignore
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 //@ts-ignore
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { MindARThree } from "mindar-image-three";
 import guiDebugger from "./utils/GUIDebugger.js";
-import { mockWithImage } from "./utils/helperFunctions.js";
+// import { mockWithImage } from "./utils/helperFunctions.js";
 
 const debugActive = window.location.hash === "#debug";
 
