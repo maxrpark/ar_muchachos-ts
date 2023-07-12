@@ -1,7 +1,6 @@
 import * as THREE from "three";
 //@ts-ignore
-// import { gsap } from "../node_modules/gsap/index.js";
-import { gsap } from "gsap";
+import { gsap } from "../node_modules/gsap/index.js";
 //@ts-ignore
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 //@ts-ignore
