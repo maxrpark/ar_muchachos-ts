@@ -35,7 +35,7 @@ rgbeLoader.load("./bg_map.hdr", (eMap: any) => {
 });
 
 const start = async () => {
-  if (!model) return;
+  if (!model || !environmentMap) return;
   // mockWithImage("./muchachos.png");
   AR_BUTTON.style.display = "none";
   const mindarThree = new MindARThree({
@@ -47,10 +47,7 @@ const start = async () => {
 
   // create a global audio source
   const sound = new THREE.Audio(listener);
-
-  // load a sound and set it as the Audio object's buffer
   const audioLoader = new THREE.AudioLoader();
-
   audioLoader.load("./muchachos.mp3", function (buffer) {
     sound.setBuffer(buffer);
     sound.setLoop(true);

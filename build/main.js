@@ -33,7 +33,7 @@ rgbeLoader.load("./bg_map.hdr", (eMap) => {
     environmentMap = eMap;
 });
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    if (!model)
+    if (!model || !environmentMap)
         return;
     AR_BUTTON.style.display = "none";
     const mindarThree = new MindARThree({
