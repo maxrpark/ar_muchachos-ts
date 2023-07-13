@@ -4,7 +4,7 @@
     "lib": ["ESNext", "dom"],
     "removeComments": true,
     "rootDir": "./src",
-    "outDir": "build",
+    "outDir": "js",
     "target": "es2017",
 
     // Module resolution
