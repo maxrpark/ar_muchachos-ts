@@ -5,7 +5,7 @@
     "removeComments": true,
     "rootDir": "./src",
     "outDir": "build",
-    "target": "ES6",
+    "target": "es2017",
 
     // Module resolution
     "baseUrl": "./",
