@@ -1,5 +1,5 @@
 import * as THREE from "three";
-const guiDebugger = ({ ambienLight, directionalLight, renderer }) => {
+const guiDebugger = ({ ambientLight, directionalLight, renderer }) => {
     const GUI = lil.GUI;
     const gui = new GUI();
     const RENDERER = gui.addFolder("Renderer");
@@ -16,12 +16,12 @@ const guiDebugger = ({ ambienLight, directionalLight, renderer }) => {
         ACESFilmic: THREE.ACESFilmicToneMapping,
     });
     const GUI_AMBIENT_LIGHT = gui.addFolder("Ambient Light");
-    GUI_AMBIENT_LIGHT.add(ambienLight, "intensity")
+    GUI_AMBIENT_LIGHT.add(ambientLight, "intensity")
         .name("intensity")
         .min(0)
-        .max(10)
+        .max(20)
         .step(0.001);
-    GUI_AMBIENT_LIGHT.addColor(ambienLight, "color")
+    GUI_AMBIENT_LIGHT.addColor(ambientLight, "color")
         .name("color")
         .min(0)
         .max(10)

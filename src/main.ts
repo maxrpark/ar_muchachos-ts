@@ -3,7 +3,7 @@ import { MindARThree } from "mindar-image-three";
 import guiDebugger from "./utils/GUIDebugger.js";
 import { resourcesLoader } from "./utils/resourcesLoader.js";
 import { sources } from "./resources.js";
-// import { mockWithImage } from "./utils/helperFunctions.js";
+import { mockWithImage } from "./utils/helperFunctions.js";
 
 const debugActive = window.location.hash === "#debug";
 
@@ -66,49 +66,52 @@ const start = async () => {
   /// LIGHTS
 
   // AMBIENT_LIGHT
-  const ambienLight = new THREE.AmbientLight("#2630ba", 1.02);
+  const ambientLight = new THREE.AmbientLight("#2630ba", 1.02);
 
   // DIRECTIONAL_LIGHT
   const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
   directionalLight.position.set(3.038, 3.038, 8.692);
 
-  scene.add(directionalLight, ambienLight);
+  scene.add(directionalLight, ambientLight);
   // DEBUGER
   if (debugActive)
     guiDebugger({
-      ambienLight,
+      ambientLight,
       directionalLight,
       renderer,
     });
 
   // MODEL INITIAL POSITION AND ANI
-  worldCup!.scale.set(0, 0, 0);
-  worldCup!.position.y = 0.5;
-  worldCup!.rotation.y = -2.5;
+  worldCup.scale.set(0, 0, 0);
+  worldCup.position.y = 0.5;
+  worldCup.rotation.y = -2.5;
 
   const anchor = mindarThree.addAnchor(0);
-  anchor.group.add(worldCup!);
+  anchor.group.add(worldCup);
 
   // AUDIO
   camera.add(listener);
   anchor.group.add(audio);
 
   audio.setRefDistance(100);
+  //@ts-ignore
+  let tl = gsap.timeline({ ease: "none", paused: true });
+
+  tl.to(worldCup!.scale, {
+    x: 0.002,
+    y: 0.002,
+    z: 0.002,
+    duration: 3,
+  }).to(worldCup!.position, { y: -0.3, duration: 2 }, 0);
 
   anchor.onTargetFound = () => {
     sound.offset = 18;
     sound.play();
-    //@ts-ignore
-    let tl = gsap.timeline({ ease: "none" });
-    tl.to(worldCup!.scale, {
-      x: 0.002,
-      y: 0.002,
-      z: 0.002,
-      duration: 3,
-    }).to(worldCup!.position, { y: -0.3, duration: 2 }, 0);
+    tl.play();
   };
   anchor.onTargetLost = () => {
     sound.stop();
+    tl.reversed(true);
     worldCup!.scale.set(0, 0, 0);
     worldCup!.position.y = 0.5;
     worldCup!.rotation.y = -3;

@@ -1,12 +1,12 @@
 import * as THREE from "three";
 import { AmbientLight, DirectionalLight, Renderer } from "three";
 interface Params {
-  ambienLight: AmbientLight;
+  ambientLight: AmbientLight;
   directionalLight: DirectionalLight;
   renderer: Renderer;
 }
 
-const guiDebugger = ({ ambienLight, directionalLight, renderer }: Params) => {
+const guiDebugger = ({ ambientLight, directionalLight, renderer }: Params) => {
   //@ts-ignore
   const GUI = lil.GUI;
   const gui = new GUI();
@@ -27,13 +27,13 @@ const guiDebugger = ({ ambienLight, directionalLight, renderer }: Params) => {
 
   const GUI_AMBIENT_LIGHT = gui.addFolder("Ambient Light");
 
-  GUI_AMBIENT_LIGHT.add(ambienLight, "intensity")
+  GUI_AMBIENT_LIGHT.add(ambientLight, "intensity")
     .name("intensity")
     .min(0)
-    .max(10)
+    .max(20)
     .step(0.001);
 
-  GUI_AMBIENT_LIGHT.addColor(ambienLight, "color")
+  GUI_AMBIENT_LIGHT.addColor(ambientLight, "color")
     .name("color")
     .min(0)
     .max(10)

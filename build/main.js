@@ -42,13 +42,13 @@ const start = async () => {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     scene.environment = envMap;
-    const ambienLight = new THREE.AmbientLight("#2630ba", 1.02);
+    const ambientLight = new THREE.AmbientLight("#2630ba", 1.02);
     const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
     directionalLight.position.set(3.038, 3.038, 8.692);
-    scene.add(directionalLight, ambienLight);
+    scene.add(directionalLight, ambientLight);
     if (debugActive)
         guiDebugger({
-            ambienLight,
+            ambientLight,
             directionalLight,
             renderer,
         });
@@ -60,19 +60,21 @@ const start = async () => {
     camera.add(listener);
     anchor.group.add(audio);
     audio.setRefDistance(100);
+    let tl = gsap.timeline({ ease: "none", paused: true });
+    tl.to(worldCup.scale, {
+        x: 0.002,
+        y: 0.002,
+        z: 0.002,
+        duration: 3,
+    }).to(worldCup.position, { y: -0.3, duration: 2 }, 0);
     anchor.onTargetFound = () => {
         sound.offset = 18;
         sound.play();
-        let tl = gsap.timeline({ ease: "none" });
-        tl.to(worldCup.scale, {
-            x: 0.002,
-            y: 0.002,
-            z: 0.002,
-            duration: 3,
-        }).to(worldCup.position, { y: -0.3, duration: 2 }, 0);
+        tl.play();
     };
     anchor.onTargetLost = () => {
         sound.stop();
+        tl.reversed(true);
         worldCup.scale.set(0, 0, 0);
         worldCup.position.y = 0.5;
         worldCup.rotation.y = -3;
