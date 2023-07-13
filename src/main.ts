@@ -3,11 +3,9 @@ import { MindARThree } from "mindar-image-three";
 import guiDebugger from "./utils/GUIDebugger.js";
 import { resourcesLoader } from "./utils/resourcesLoader.js";
 import { sources } from "./resources.js";
-import { mockWithImage } from "./utils/helperFunctions.js";
+// import { setARTestImage } from "./utils/helperFunctions.js";
 
 const debugActive = window.location.hash === "#debug";
-
-document.addEventListener("DOMContentLoaded", () => resources());
 
 const listener = new THREE.AudioListener();
 const audio = new THREE.PositionalAudio(listener);
@@ -32,22 +30,25 @@ const resources = async () => {
     console.log(error);
   }
 };
+// TEST AR
+// setARTestImage("./muchachos.png", resources);
 
+// AR LIVE
+document.addEventListener("DOMContentLoaded", () => resources());
 const start = async () => {
   if (!worldCup || !envMap) return;
-  // mockWithImage("./muchachos.png");
 
   const mindarThree = new MindARThree({
     container: document.body,
-    imageTargetSrc: "./target.mind",
+    imageTargetSrc: "../targets/target.mind",
   });
 
   const { renderer, scene, camera } = mindarThree;
 
-  // create a global audio source
+  // AUDIO
   const sound = new THREE.Audio(listener);
   const audioLoader = new THREE.AudioLoader();
-  audioLoader.load("./muchachos.mp3", function (buffer) {
+  audioLoader.load("../assets/muchachos.mp3", function (buffer) {
     sound.setBuffer(buffer);
     sound.setLoop(true);
     sound.setVolume(0.5);
@@ -84,7 +85,6 @@ const start = async () => {
   // MODEL INITIAL POSITION AND ANI
   worldCup.scale.set(0, 0, 0);
   worldCup.position.y = 0.5;
-  worldCup.rotation.y = -2.5;
 
   const anchor = mindarThree.addAnchor(0);
   anchor.group.add(worldCup);
@@ -102,19 +102,26 @@ const start = async () => {
     y: 0.002,
     z: 0.002,
     duration: 3,
-  }).to(worldCup!.position, { y: -0.3, duration: 2 }, 0);
+  })
+    .to(worldCup!.position, { y: -0.3, duration: 2 }, 0)
+    .set(
+      worldCup.rotation,
+      {
+        y: -2.5,
+      },
+      0
+    );
 
   anchor.onTargetFound = () => {
     sound.offset = 18;
     sound.play();
+    tl.progress(0);
     tl.play();
   };
   anchor.onTargetLost = () => {
     sound.stop();
+
     tl.reversed(true);
-    worldCup!.scale.set(0, 0, 0);
-    worldCup!.position.y = 0.5;
-    worldCup!.rotation.y = -3;
   };
 
   await mindarThree.start();
