@@ -10,9 +10,6 @@ const loaders = {
     [Loader.RGBE_LOADER]: new RGBELoader(),
 };
 export const resourcesLoader = (assets) => {
-    const loaderSpinner = document.createElement("span");
-    loaderSpinner.classList.add("loader");
-    document.body.appendChild(loaderSpinner);
     const items = {};
     const loadPromises = [];
     for (const item of assets) {
@@ -25,6 +22,10 @@ export const resourcesLoader = (assets) => {
         });
         loadPromises.push(loadPromise);
     }
-    return Promise.all(loadPromises).then(() => items);
+    return Promise.all(loadPromises).then(() => {
+        const loaderWrapper = document.querySelector(".loader-wrapper");
+        loaderWrapper.style.display = "none";
+        return items;
+    });
 };
 //# sourceMappingURL=resourcesLoader.js.map
