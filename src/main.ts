@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { MindARThree } from "mindar-image-three";
 import { resourcesLoader } from "./utils/resourcesLoader.js";
 import { sources } from "./resources.js";
-import { setARTestImage } from "./utils/helperFunctions.js";
+// import { setARTestImage } from "./utils/helperFunctions.js";
 
 // import guiDebugger from "./utils/GUIDebugger.js";
 // const debugActive = window.location.hash === "#debug";
@@ -33,10 +33,10 @@ const resources = async () => {
   }
 };
 // TEST AR
-setARTestImage("../assets/muchachos.png", resources);
+// setARTestImage("../assets/muchachos.png", resources);
 
 // AR LIVE
-// document.addEventListener("DOMContentLoaded", () => resources());
+document.addEventListener("DOMContentLoaded", () => resources());
 const start = async () => {
   if (!worldCup) return;
 

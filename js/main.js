@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { MindARThree } from "mindar-image-three";
 import { resourcesLoader } from "./utils/resourcesLoader.js";
 import { sources } from "./resources.js";
-import { setARTestImage } from "./utils/helperFunctions.js";
 const listener = new THREE.AudioListener();
 const audio = new THREE.PositionalAudio(listener);
 let worldCup = null;
@@ -20,7 +19,7 @@ const resources = async () => {
         console.log(error);
     }
 };
-setARTestImage("../assets/muchachos.png", resources);
+document.addEventListener("DOMContentLoaded", () => resources());
 const start = async () => {
     if (!worldCup)
         return;
