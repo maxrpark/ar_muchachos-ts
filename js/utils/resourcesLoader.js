@@ -23,7 +23,7 @@ export const resourcesLoader = (assets) => {
         loadPromises.push(loadPromise);
     }
     return Promise.all(loadPromises).then(() => {
-        const loaderWrapper = document.querySelector(".loader-wrapper");
+        const loaderWrapper = document.querySelector(".assets-loader-wrapper");
         loaderWrapper.style.display = "none";
         return items;
     });
