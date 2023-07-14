@@ -10,6 +10,9 @@ const loaders = {
     [Loader.RGBE_LOADER]: new RGBELoader(),
 };
 export const resourcesLoader = (assets) => {
+    const loaderSpinner = document.createElement("span");
+    loaderSpinner.classList.add("loader");
+    document.body.appendChild(loaderSpinner);
     const items = {};
     const loadPromises = [];
     for (const item of assets) {

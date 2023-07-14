@@ -34,6 +34,10 @@ const loaders: LoadersInt = {
 export const resourcesLoader = (
   assets: SourceInt[]
 ): Promise<ResourceItemsInt> => {
+  const loaderSpinner = document.createElement("span");
+  loaderSpinner.classList.add("loader");
+  document.body.appendChild(loaderSpinner);
+
   const items: ResourceItemsInt = {};
   const loadPromises: Promise<void>[] = [];
 
