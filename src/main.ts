@@ -1,11 +1,11 @@
 import * as THREE from "three";
 import { MindARThree } from "mindar-image-three";
-import guiDebugger from "./utils/GUIDebugger.js";
 import { resourcesLoader } from "./utils/resourcesLoader.js";
 import { sources } from "./resources.js";
-// import { setARTestImage } from "./utils/helperFunctions.js";
+import { setARTestImage } from "./utils/helperFunctions.js";
 
-const debugActive = window.location.hash === "#debug";
+// import guiDebugger from "./utils/GUIDebugger.js";
+// const debugActive = window.location.hash === "#debug";
 
 const listener = new THREE.AudioListener();
 const audio = new THREE.PositionalAudio(listener);
@@ -25,18 +25,20 @@ const resources = async () => {
     worldCup = model.scene;
     envMap = environmentMap;
 
+    envMap.mapping = THREE.EquirectangularReflectionMapping;
+
     start();
   } catch (error) {
     console.log(error);
   }
 };
 // TEST AR
-// setARTestImage("./muchachos.png", resources);
+setARTestImage("../assets/muchachos.png", resources);
 
 // AR LIVE
-document.addEventListener("DOMContentLoaded", () => resources());
+// document.addEventListener("DOMContentLoaded", () => resources());
 const start = async () => {
-  if (!worldCup || !envMap) return;
+  if (!worldCup) return;
 
   const mindarThree = new MindARThree({
     container: document.body,
@@ -64,23 +66,21 @@ const start = async () => {
   // SCENE
   scene.environment = envMap;
 
-  /// LIGHTS
+  // /// LIGHTS
+  // // AMBIENT_LIGHT
+  // const ambientLight = new THREE.AmbientLight("#2630ba", 1.02);
+  // // DIRECTIONAL_LIGHT
+  // const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
+  // directionalLight.position.set(3.038, 3.038, 8.692);
 
-  // AMBIENT_LIGHT
-  const ambientLight = new THREE.AmbientLight("#2630ba", 1.02);
-
-  // DIRECTIONAL_LIGHT
-  const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
-  directionalLight.position.set(3.038, 3.038, 8.692);
-
-  scene.add(directionalLight, ambientLight);
-  // DEBUGER
-  if (debugActive)
-    guiDebugger({
-      ambientLight,
-      directionalLight,
-      renderer,
-    });
+  // scene.add(directionalLight, ambientLight);
+  // // DEBUGER
+  // if (debugActive)
+  //   guiDebugger({
+  //     ambientLight,
+  //     directionalLight,
+  //     renderer,
+  //   });
 
   // MODEL INITIAL POSITION AND ANI
   worldCup.scale.set(0, 0, 0);
@@ -103,7 +103,7 @@ const start = async () => {
     z: 0.002,
     duration: 3,
   })
-    .to(worldCup!.position, { y: -0.3, duration: 2 }, 0)
+    .to(worldCup!.position, { y: -0.4, duration: 2 }, 0)
     .set(
       worldCup.rotation,
       {

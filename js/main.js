@@ -1,9 +1,8 @@
 import * as THREE from "three";
 import { MindARThree } from "mindar-image-three";
-import guiDebugger from "./utils/GUIDebugger.js";
 import { resourcesLoader } from "./utils/resourcesLoader.js";
 import { sources } from "./resources.js";
-const debugActive = window.location.hash === "#debug";
+import { setARTestImage } from "./utils/helperFunctions.js";
 const listener = new THREE.AudioListener();
 const audio = new THREE.PositionalAudio(listener);
 let worldCup = null;
@@ -14,15 +13,16 @@ const resources = async () => {
         const { model, environmentMap } = loadedResources;
         worldCup = model.scene;
         envMap = environmentMap;
+        envMap.mapping = THREE.EquirectangularReflectionMapping;
         start();
     }
     catch (error) {
         console.log(error);
     }
 };
-document.addEventListener("DOMContentLoaded", () => resources());
+setARTestImage("../assets/muchachos.png", resources);
 const start = async () => {
-    if (!worldCup || !envMap)
+    if (!worldCup)
         return;
     const mindarThree = new MindARThree({
         container: document.body,
@@ -42,16 +42,6 @@ const start = async () => {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     scene.environment = envMap;
-    const ambientLight = new THREE.AmbientLight("#2630ba", 1.02);
-    const directionalLight = new THREE.DirectionalLight("#fffcf0", 4.223);
-    directionalLight.position.set(3.038, 3.038, 8.692);
-    scene.add(directionalLight, ambientLight);
-    if (debugActive)
-        guiDebugger({
-            ambientLight,
-            directionalLight,
-            renderer,
-        });
     worldCup.scale.set(0, 0, 0);
     worldCup.position.y = 0.5;
     const anchor = mindarThree.addAnchor(0);
@@ -66,7 +56,7 @@ const start = async () => {
         z: 0.002,
         duration: 3,
     })
-        .to(worldCup.position, { y: -0.3, duration: 2 }, 0)
+        .to(worldCup.position, { y: -0.4, duration: 2 }, 0)
         .set(worldCup.rotation, {
         y: -2.5,
     }, 0);
