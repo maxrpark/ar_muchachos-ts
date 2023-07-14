@@ -25,7 +25,7 @@ const start = async () => {
         return;
     const mindarThree = new MindARThree({
         container: document.body,
-        imageTargetSrc: "../targets/target.mind",
+        imageTargetSrc: "../assets/targets/target.mind",
     });
     const { renderer, scene, camera } = mindarThree;
     const sound = new THREE.Audio(listener);
