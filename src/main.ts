@@ -74,7 +74,7 @@ const start = async () => {
   // directionalLight.position.set(3.038, 3.038, 8.692);
 
   // scene.add(directionalLight, ambientLight);
-  // // DEBUGER
+  // // DEBUGGER
   // if (debugActive)
   //   guiDebugger({
   //     ambientLight,
