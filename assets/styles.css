@@ -23,29 +23,23 @@ body {
 }
 
 .assets-loader {
-  width: 32px;
-  height: 32px;
-  position: relative;
+  width: 48px;
+  height: 48px;
+  border: 5px solid;
+  border-color: #ff3d00 transparent;
   border-radius: 50%;
-  color: #ea712e;
-  animation: fill 1s ease-in infinite alternate;
-}
-.assets-loader::before,
-.assets-loader::after {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
-  left: 48px;
-  top: 0;
-  animation: fill 0.9s ease-in infinite alternate;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
-.assets-loader::after {
-  left: auto;
-  right: 48px;
-  animation-duration: 1.1s;
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fill {
